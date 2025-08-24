@@ -20,7 +20,7 @@ find_package(plutosvg 0.0.6 REQUIRED)
 find_package(cpuinfo REQUIRED)
 find_package(DiscordRPC 3.4.0 REQUIRED)
 find_package(SoundTouch 2.3.3 REQUIRED)
-find_package(libzip 1.11.4 REQUIRED)
+find_package(libzip 1.11.2 REQUIRED) # 1.11.4, but FreeBSD is still on 1.11.2
 
 if(NOT WIN32)
   find_package(CURL REQUIRED)
@@ -47,7 +47,7 @@ endif()
 find_package(Shaderc REQUIRED)
 find_package(spirv_cross_c_shared REQUIRED)
 
-if(LINUX AND NOT ALLOW_INSTALL)
+if((LINUX OR BSD) AND NOT ALLOW_INSTALL)
   # We need to add the rpath for shaderc to the executable.
   get_target_property(SHADERC_LIBRARY Shaderc::shaderc_shared IMPORTED_LOCATION)
   get_filename_component(SHADERC_LIBRARY_DIRECTORY ${SHADERC_LIBRARY} DIRECTORY)

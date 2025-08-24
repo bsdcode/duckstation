@@ -218,9 +218,22 @@ Requirements:
 
 1. Clone the repository: `git clone https://github.com/stenzek/duckstation.git`.
 2. Build the dependencies. This will take a while. `scripts/deps/build-dependencies-mac.sh deps`.
-2. Run CMake to configure the build system: `cmake -Bbuild-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_PREFIX_PATH="$PWD/deps"`. 
+2. Run CMake to configure the build system: `cmake -Bbuild-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_PREFIX_PATH="$PWD/deps"`.
 4. Compile the source code: `cmake --build build-release --parallel`.
 5. Run the binary, located in the build directory under `bin/DuckStation.app`.
+
+### FreeBSD
+
+Requirements:
+```
+bash cmake curl dbus freetype2 git kf6-extra-cmake-modules libX11 libbacktrace libglvnd libjpeg-turbo libzip ninja pkgconf png qt6-base qt6-tools sdl3 spirv-cross vulkan-headers webp zstd
+```
+
+1. Clone the repository: `git clone https://github.com/stenzek/duckstation.git`, `cd duckstation`.
+2. Build dependencies: `scripts/deps/build-dependencies-freebsd.sh deps`.
+3. Run CMake to configure the build system: `cmake -B build-release -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_PREFIX_PATH="$PWD/deps" -G Ninja`.
+4. Compile the source code: `ninja -C build-release`.
+5. Run the binary, located in the build directory under `./build-release/bin/duckstation-qt`.
 
 ## User Directories
 The "User Directory" is where you should place your BIOS images, where settings are saved to, and memory cards/save states are saved by default.
@@ -229,7 +242,7 @@ An optional [SDL game controller database file](#sdl-game-controller-database) c
 This is located in the following places depending on the platform you're using:
 
 - Windows: My Documents\DuckStation
-- Linux: `$XDG_DATA_HOME/duckstation`, or `~/.local/share/duckstation`.
+- Linux/FreeBSD: `$XDG_DATA_HOME/duckstation`, or `~/.local/share/duckstation`.
 - macOS: `~/Library/Application Support/DuckStation`.
 
 So, if you were using Linux, you would place your BIOS images in `~/.local/share/duckstation/bios`. This directory will be created upon running DuckStation for the first time.
